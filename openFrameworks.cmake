@@ -251,10 +251,12 @@ if(CMAKE_SYSTEM MATCHES Linux)
         -Wl,-rpath,'$$ORIGIN'
     )
 
-    if(CMAKE_BUILD_TYPE MATCHES Release)
+    if((CMAKE_BUILD_TYPE MATCHES Release) OR (CMAKE_BUILD_TYPE MATCHES RelWithDebInfo))
         set(OF_LIB_DIR "${OF_ROOT_DIR}/lib-linux/release-${OF_PLATFORM}-${ARCH_BIT}")
     elseif(CMAKE_BUILD_TYPE MATCHES Debug)
         set(OF_LIB_DIR "${OF_ROOT_DIR}/lib-linux/debug-${OF_PLATFORM}-${ARCH_BIT}")
+    else()
+        message(FATAL_ERROR "set an appropriate build type")
     endif()
 
     if(OF_STATIC)
